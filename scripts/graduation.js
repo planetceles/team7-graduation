@@ -137,3 +137,42 @@ function startCountdown() {
 }
 
 startCountdown();
+
+// fetch data
+const url = "https://planetceles.github.io/team7-graduation/data/byu-certificates.json";
+const cards = document.querySelector("#catalog");
+
+async function getCertificateData() {
+    const response = await fetch(url);
+    const data = await response.json();
+    displayCertificates(data.certificate);
+}
+getCertificateData();
+
+const displayCertificates = (certificate) => {
+    certificate.forEach((cert) => {
+        let card = document.createElement("section");
+        let certName = document.createElement("h3");
+        let catalog = document.createElement("p");
+        let course = document.createElement("p");
+        let preReq = document.createElement("p");
+        let equiv = document.createElement("p");
+        let taughtOut = document.createElement("p");
+        let note = document.createElement("p");
+        let code = document.createElement("p");
+        card.classList.add("cert-card");
+
+        certName.textContent = `${cert.name}`;
+
+        card.appendChild(certName);
+        card.appendChild(catalog);
+        card.appendChild(course);
+        card.appendChild(equiv);
+        card.appendChild(preReq);
+        card.appendChild(taughtOut);
+        card.appendChild(code);
+        card.appendChild(note);
+
+        cards.appendChild(card)
+    });
+}
